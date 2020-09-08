@@ -29,9 +29,10 @@ after_id = -1
 # print(response.json())
 
 # пагинация, по кусочка не более 100 сообщений
+limit = 100
 
 while True:
-    response = requests.get(url, params={'after_id': after_id})
+    response = requests.get(url, params={'after_id': after_id, 'limit': limit})
     messages = response.json()['messages']
     for message in messages:
         pretty_print(message)
