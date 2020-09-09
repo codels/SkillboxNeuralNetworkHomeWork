@@ -23,7 +23,7 @@ url = 'http://127.0.0.1:5000/messages'
 # messages = response.json()['messages']
 # print(messages)
 
-after_id = -1
+after_timestamp = -1
 
 # response = requests.get(url, params={'after_id': after_id})
 # print(response.json())
@@ -32,10 +32,11 @@ after_id = -1
 limit = 100
 
 while True:
-    response = requests.get(url, params={'after_id': after_id, 'limit': limit})
+    response = requests.get(url, params={'after_timestamp': after_timestamp, 'limit': limit})
     messages = response.json()['messages']
     for message in messages:
         pretty_print(message)
-        after_id = message['id']
+        after_timestamp = message['timestamp']
 
-    time.sleep(1)
+    if not messages:
+        time.sleep(1)
